@@ -1,0 +1,10 @@
+rag\demo\DemoApplication.class
+rag\demo\PdfProcessingService.class
+rag\demo\PDFImageExtractor.class
+rag\demo\OpenRouterConfig.class
+rag\demo\PDFTextExtractor.class
+rag\demo\OpenAIImageGenerator.class
+rag\demo\OpenAITextGenerator.class
+rag\demo\Bean.class
+rag\demo\PdfProperties.class
+META-INF\spring-configuration-metadata.json

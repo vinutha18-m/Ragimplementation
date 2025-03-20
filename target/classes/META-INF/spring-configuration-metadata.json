@@ -1,0 +1,37 @@
+{
+  "groups": [
+    {
+      "name": "openrouter",
+      "type": "rag.demo.OpenRouterConfig",
+      "sourceType": "rag.demo.OpenRouterConfig"
+    },
+    {
+      "name": "pdf",
+      "type": "rag.demo.PdfProperties",
+      "sourceType": "rag.demo.PdfProperties"
+    }
+  ],
+  "properties": [
+    {
+      "name": "openrouter.api-key",
+      "type": "java.lang.String",
+      "sourceType": "rag.demo.OpenRouterConfig"
+    },
+    {
+      "name": "openrouter.api-url",
+      "type": "java.lang.String",
+      "sourceType": "rag.demo.OpenRouterConfig"
+    },
+    {
+      "name": "pdf.file-path",
+      "type": "java.lang.String",
+      "sourceType": "rag.demo.PdfProperties"
+    },
+    {
+      "name": "pdf.output-image-dir",
+      "type": "java.lang.String",
+      "sourceType": "rag.demo.PdfProperties"
+    }
+  ],
+  "hints": []
+}
