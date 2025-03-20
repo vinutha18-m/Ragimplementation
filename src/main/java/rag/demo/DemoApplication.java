@@ -11,7 +11,7 @@ import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
 @ComponentScan("rag.demo")
-@EnableConfigurationProperties({PdfProperties.class ,  DeepSeekConfig.class})
+@EnableConfigurationProperties({PdfProperties.class ,  OpenRouterConfig.class})
 
 public class DemoApplication implements CommandLineRunner {
     @Autowired

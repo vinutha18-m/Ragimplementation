@@ -13,17 +13,17 @@ import org.springframework.stereotype.Component;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
-@Component // Mark this class as a Spring component
+@Component
 public class OpenAIImageGenerator {
 
-    @Value("${deepseek.image.api.url}") // Inject the API URL from application.properties
-    private String deepseekApiUrl;
+    @Value("${openrouter.api.url}") // Use a single API URL
+    private String apiUrl;
 
-    @Value("${deepseek.api.key}") // Inject the API key from application.properties
-    private String deepseekApiKey;
+    @Value("${openrouter.api.key}")
+    private String apiKey;
 
     /**
-     * Generates an image using the DeepSeek API based on the given prompt.
+     * Generates an image using the OpenRouter API based on the given prompt.
      *
      * @param prompt The prompt to generate the image.
      * @return The URL of the generated image.
@@ -32,15 +32,16 @@ public class OpenAIImageGenerator {
         try {
             // Create the JSON request body
             JsonObject requestBody = new JsonObject();
+            requestBody.addProperty("model", "deepseek/deepseek-r1-distill-llama-70b:free"); // Specify model
             requestBody.addProperty("prompt", prompt);
             requestBody.addProperty("n", 1);
             requestBody.addProperty("size", "1024x1024");
 
             // Create the HTTP request
             HttpRequest request = HttpRequest.newBuilder()
-                    .uri(URI.create(deepseekApiUrl)) // Use injected API URL
+                    .uri(URI.create(apiUrl + "/images/generations")) // Append correct endpoint
                     .header("Content-Type", "application/json")
-                    .header("Authorization", "Bearer " + deepseekApiKey) // Use injected API key
+                    .header("Authorization", "Bearer " + apiKey)
                     .POST(BodyPublishers.ofString(requestBody.toString()))
                     .build();
 
@@ -50,10 +51,13 @@ public class OpenAIImageGenerator {
 
             // Parse the response
             JsonObject responseJson = JsonParser.parseString(response.body()).getAsJsonObject();
-            return responseJson.get("data").getAsJsonArray().get(0).getAsJsonObject().get("url").getAsString();
+            return responseJson.getAsJsonArray("images")
+                    .get(0).getAsJsonObject()
+                    .get("url").getAsString(); // OpenRouter uses "images" not "data"
         } catch (Exception e) {
             e.printStackTrace();
             return "Error generating image: " + e.getMessage();
         }
     }
 }
+
